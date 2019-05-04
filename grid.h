@@ -7,7 +7,7 @@
 
 using namespace std;
 
-enum ColorType{Forest, Hills, Fields, Pasture, Mountain};
+enum LandType{Forest, Hills, Fields, Pasture, Mountain};
 // The base class for all Uno Cards
 class Grid{
     public:

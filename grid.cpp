@@ -1,4 +1,4 @@
-#include "card.h"
+#include "grid.h"
 
 void Grid::setLand(LandType l){
     land = l;

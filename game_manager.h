@@ -9,15 +9,10 @@ class GameManager{
     int numPlayers;
     // index of the current player
     int currentPlayerIndex;
-    // number of cards the player can play this turn
-    // (usually 1 or 0. 0 in the cases when the last card was a skip or draw 2)
-    int numCardsToPlay;
-    // number of cards to draw this turn (usually 0. 2 when last card was draw 2)
-    int numCardsToDraw;
     // indicates whether the index of the next player is determined by incrementing
     // or decrementing. Toggled by the reverse card.
     bool turnOrderForward;
-    bool canPlayCard;
+    bool canCard;
     
     
     // Constructor. Passed the number of players for the current game.

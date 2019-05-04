@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "card.h"
+#include "grid.h"
 #include "game_manager.h"
 
 using namespace std;
@@ -11,34 +11,18 @@ using namespace std;
  * Uno card classes to form a deck.
  *
  */
-void buildDeck(vector<Card*> &deck){
-    for(int c = RED; c <= YELLOW; c++){
-        for(int n = 0; n < 10; n++){
-            deck.push_back(new NumberCard((ColorType)c,n));
+void buildGrid(vector<Grid*>){
+    for(int c = Forest; c <= Mountain; c++){
+        for(int m = 0; m < 7; m++){
+            for(int n = 0; n < 7; n++){
+                deck.push_back(new ClearGrid((LandType)l,m,n));
+            }
         }
-        deck.push_back(new ReverseCard((ColorType)c));
-        deck.push_back(new SkipCard((ColorType)c));
-        deck.push_back(new Draw2Card((ColorType)c));
-        deck.push_back(new WildCard(WILD));
+        
     }
     
 }
 
-/* drawCards()
- *
- * Rececives references to the deck and hand and the number of cards to draw.
- * The specified number of cards will be removed from the deck and added to
- * the hand.
- *
- */
-void drawCards(vector<Card*> &deck, vector<Card*> &hand, int numCardsToDraw){
-    Card* temp;
-    for(int i = 0; i < numCardsToDraw; i++){
-        temp = deck.at(deck.size() - 1);
-        deck.pop_back();
-        hand.push_back(temp);
-    }
-}
 
 
 /* shuffle()
@@ -47,10 +31,10 @@ void drawCards(vector<Card*> &deck, vector<Card*> &hand, int numCardsToDraw){
  * a specified number of times, creating a shuffled deck.
  *
  */
-void shuffle(vector<Card*> &deck){
-    Card* temp;
+void shuffle(vector<Grid*>){
+    Grid* temp;
     int idx1, idx2;
-    for(int i = 0; i < 500; i++){
+    for(int i = 0; i < 16; i++){
         idx1 = rand() % deck.size();
         idx2 = rand() % deck.size();
         
@@ -65,7 +49,7 @@ void shuffle(vector<Card*> &deck){
  * Renders the cards in he hand vector passed.
  *
  */
-void renderHand(vector<Card*> hand){
+void renderGrid(vector<Grid*> hand){
     if(hand.size() > 0){
         for(int i = 0; i <= 7; i++){
             for(int j = 0; j < hand.size(); j++){
@@ -79,16 +63,7 @@ void renderHand(vector<Card*> hand){
     }
 }
 
-/* renderDiscard()
- *
- * Renders the top card of the passed discard vector.
- *
- */
-void renderDiscard(vector<Card*> discard){
-    for(int i = 0; i <= 7; i++){
-        cout << discard.at(discard.size() - 1)->render(i) << endl;
-    }
-}
+
 
 /* takeTurn()
  *
@@ -99,7 +74,7 @@ void renderDiscard(vector<Card*> discard){
  * players turn (see numCardsToPlay in GameManager).
  *
  */
-void takeTurn(vector<Card*> &deck, vector<Card*> &hand, vector<Card*> &discard, GameManager &gameManager){
+void takeTurn(vector<Grid*> &deck, vector<Grid*> &hand, vector<Grid*> &discard, GameManager &gameManager){
     cout << "Player " << gameManager.currentPlayerIndex << "'s turn." << endl;
     
     // TODO: Draw cards if necessary (draw 2 card)
@@ -123,7 +98,7 @@ void takeTurn(vector<Card*> &deck, vector<Card*> &hand, vector<Card*> &discard, 
         if(input < i){
             // Play card at index input
             if(hand.at(input)->play(*discard.at(discard.size()-1), gameManager)){
-                Card* temp;
+                Grid* temp;
                 temp = hand.at(input);
                 discard.push_back(temp);
                 hand.erase(hand.begin() + input); // Remove card in hand at position "input"
@@ -145,27 +120,23 @@ void takeTurn(vector<Card*> &deck, vector<Card*> &hand, vector<Card*> &discard, 
 int main(){
     srand(time(0));
     
-    GameManager gameManager(3); // Create game for 3 players
-    
-    vector<Card*> discard;
-    vector<Card*> deck;
+    GameManager gameManager(2); // Create game for 2 players
+
     // vector of vectors to hold handls for n number of players
-    vector<vector<Card*>> hands(gameManager.numPlayers);
+    vector<vector<Grid*>> hands(gameManager.numPlayers);
     
-    buildDeck(deck);
+    buildGrid(deck);
     shuffle(deck);
     
     for(int i = 0; i < hands.size(); i++)
         drawCards(deck,hands.at(i),7);
     
-    // add first card to discard
-    drawCards(deck,discard,1);
     
     while(1 /* TODO: Check for winner (no cards in hand)*/){
-        renderDiscard(discard);
-      //  renderHand(hands.at(gameManager.currentPlayerIndex));
+
+        renderHand(hands.at(gameManager.currentPlayerIndex));
     
-        takeTurn(deck, hands.at(gameManager.currentPlayerIndex), discard, gameManager);
+        takeTurn(deck, hands.at(gameManager.currentPlayerIndex), gameManager);
     }
     cout << "Congrates you win!"<< endl;
     
