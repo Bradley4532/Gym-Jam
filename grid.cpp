@@ -4,9 +4,24 @@ void Grid::setLand(LandType l){
     land = l;
 }
 
-void Grid::setNumber(int m, int n){
-    number1 = m;
-    number2 = n;
+void Grid::setNumber(int n){
+    number = n;
+
+}
+void Grid::setName(Player p){
+    playername = p;
+}
+
+void Grid::setBuilding(Building b){
+    building = b;
+}
+
+Building Grid::getBuilding(){
+    return building;
+}
+
+Player Grid::getName(){
+    return playername;
 }
 
 LandType Grid::getLand(){
@@ -17,15 +32,13 @@ int Grid::getNumber1(){
     return number1;
 }
 
-int Grid::getNumber2(){
-    return number2;
+
+HouseGrid::HouseGrid(LandType l, int n, Player p){
+    setLand(l);
+    setNumber(n);
+    setName(p);
 }
 
-NumberGrid::NumberGrid(LandType l, int m, int n){
-    setLand(l);
-    setNumber1(m);
-    setNumber2(n);
-}
 
 string ClearGrid::render(int line){
     switch(line){
@@ -36,7 +49,9 @@ string ClearGrid::render(int line){
         case 4: return "|           |";
         case 5: return "|           |";
         case 6: return "|           |";
-        case 7: return "|___________|";
+        case 7: return "|           |";
+        case 8: return "|           |";
+        case 9: return "|___________|";
         default:
             return " ";
     }
@@ -44,6 +59,8 @@ string ClearGrid::render(int line){
 
 string HouseGrid::render(int line){
     stringstream ss;
+    stringstream pp;
+    
     switch(line){
         case 0: return ".___________.";
         case 1: return "|           |";
@@ -69,48 +86,28 @@ string HouseGrid::render(int line){
                 break;
             break;
             }
-        case 3: return "|   /^^^\\  |";
-        case 4: return "|  /_____\\ |";
-        case 5: return "|  |     |  |";
-        case 6: return "|  |_____|  |";
-        case 7: return "|___________|";
-        default:
-            return " ";
-    }
-}
-
-string CityGrid::render(int line){
-    stringstream ss;
-   switch(line){
-        case 0: return ".___________.";
-        case 1: return "|           |";
-        case 2:  
-            switch(land){
-            case Forest:
-                return "|   Forest  |";
-                break;
-            case Hills:
-                return "|    Hills  |";
-                break;
-            case Fields:
-                return "|   Fields  |";
-                break;
-            case Pasture:
-                return "|  Pasture  |";
-                break;
-            case Mountain:
-                return "| Mountain  |";
-                break;
-            default:
-                return "|           |";
-                break;
+        case 3:
+        ss << "|     " <<  number << "     |";
+            return ss.str();
             break;
-            }
-        case 3: return "|  _______  |";
-        case 4: return "|  | [_] |  |";
-        case 5: return "|  |     |  |";
-        case 6: return "|  |_____|  |";
-        case 7: return "|___________|";
+        case 4: 
+            switch(building){
+            case House:
+                return "|   /^^^\\  |";
+                return "|  /_____\\ |";
+                return "|  |     |  |";
+                return "|  |_____|  |";
+                break;
+            case City:
+                return "|  _______  |";
+                return "|  | [_] |  |";
+                return "|  |     |  |";
+                return "|  |_____|  |";
+        case 8: 
+        pp << "|     " <<  playerName << "     |";
+            return sstream.str();
+            break;
+        case 8: return "|___________|";
         default:
             return " ";
     }

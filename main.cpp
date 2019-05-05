@@ -2,6 +2,7 @@
 #include <vector>
 #include "grid.h"
 #include "game_manager.h"
+#include "rules.h"
 
 using namespace std;
 

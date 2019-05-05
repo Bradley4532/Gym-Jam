@@ -10,13 +10,19 @@ using namespace std;
 enum LandType{Forest, Hills, Fields, Pasture, Mountain};
 // The base class for all Uno Cards
 class Grid{
+    protected:
+    // describes the card's color
+    LandType land;
+    // describes the card's number
+    int number;
+    
+    string playerName;
+    
     public:
     // Mutators and Accessors
+    void setNumber(int);
+    void setNumber();
 
-    void setNumber1(int);
-    void setNumber2(int);
-    int getNumber1();
-    int getNumber2();
     
     // virtual function to render the card's image in the terminal
     virtual string render(int); 
@@ -29,23 +35,17 @@ class Grid{
 
 class ClearGrid : public Grid{
     public:
-    NumberGrid(int);
+    ClearGrid(LandType, int);
     string render(int);
     bool play(Grid, GameManager&);
 };
 
 class HouseGrid : public Grid{
     public:
-    NumberGrid(int);
+    HouseGrid(LandType, int);
     string render(int);
     bool play(Grid, GameManager&);
 };
 
-class CityGrid : public Grid{
-    public:
-    NumberGrid(int);
-    string render(int);
-    bool play(Grid, GameManager&);
-};
 
 #endif
