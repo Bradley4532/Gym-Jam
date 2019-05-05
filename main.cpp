@@ -13,10 +13,9 @@ using namespace std;
  *
  */
 void buildGrid(vector<Grid*>){
-    for(int c = Forest; c <= Mountain; c++){
-        for(int m = 0; m < 7; m++){
-            for(int n = 0; n < 7; n++){
-                deck.push_back(new ClearGrid((LandType)l,m,n));
+    for(int l = Forest; l <= Mountain; l++){
+        for(int n = 2; n < 12; n++){
+                deck.push_back(new HouseGrid((LandType)l,n));
             }
         }
         

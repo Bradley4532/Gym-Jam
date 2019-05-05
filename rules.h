@@ -35,6 +35,11 @@ class harvestBounty : public Point{
 
 };
 
+class City : public Point{
+    int point = point + 1;
+
+};
+
 
 class Land{
     public:
