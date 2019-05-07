@@ -16,6 +16,8 @@ class Grid{
     // describes the card's number
     int number;
     
+    Building building;
+    
     string playerName;
     
     public:
@@ -35,14 +37,14 @@ class Grid{
 
 class ClearGrid : public Grid{
     public:
-    ClearGrid(LandType, int);
+    ClearGrid(LandType, Building, int);
     string render(int);
     bool play(Grid, GameManager&);
 };
 
 class HouseGrid : public Grid{
     public:
-    HouseGrid(LandType, int);
+    HouseGrid(LandType, Building, int, Player);
     string render(int);
     bool play(Grid, GameManager&);
 };

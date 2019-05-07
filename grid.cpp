@@ -9,7 +9,7 @@ void Grid::setNumber(int n){
 
 }
 void Grid::setName(Player p){
-    playername = p;
+    playernum = p;
 }
 
 void Grid::setBuilding(Building b){
@@ -33,8 +33,9 @@ int Grid::getNumber1(){
 }
 
 
-HouseGrid::HouseGrid(LandType l, int n, Player p){
+HouseGrid::HouseGrid(LandType l, Building b, int n, Player p){
     setLand(l);
+    setBuilding(b);
     setNumber(n);
     setName(p);
 }
@@ -59,7 +60,6 @@ string ClearGrid::render(int line){
 
 string HouseGrid::render(int line){
     stringstream ss;
-    stringstream pp;
     
     switch(line){
         case 0: return ".___________.";
@@ -103,11 +103,19 @@ string HouseGrid::render(int line){
                 return "|  | [_] |  |";
                 return "|  |     |  |";
                 return "|  |_____|  |";
-        case 8: 
-        pp << "|     " <<  playerName << "     |";
-            return sstream.str();
+            default:
+                return "|           |";
+                return "|           |";
+                return "|           |";
+                return "|           |";
+                break;
+        case 5: 
+            switch(playernum)
+                return "|    Player " <<  playerNum << "     |";
+                 default:
+                return "|           |";
             break;
-        case 8: return "|___________|";
+        case 6: return "|___________|";
         default:
             return " ";
     }

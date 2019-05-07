@@ -12,6 +12,8 @@ using namespace std;
  * Uno card classes to form a deck.
  *
  */
+ 
+ // this creates the land types with numbers for each tile
 void buildGrid(vector<Grid*>){
     for(int l = Forest; l <= Mountain; l++){
         for(int n = 2; n < 12; n++){
@@ -22,7 +24,8 @@ void buildGrid(vector<Grid*>){
     }
     
 }
-
+// +++++++++++++++++++++++++++++++++
+// need to display types of houses and owner.
 
 
 /* shuffle()
@@ -31,36 +34,52 @@ void buildGrid(vector<Grid*>){
  * a specified number of times, creating a shuffled deck.
  *
  */
-void shuffle(vector<Grid*>){
-    Grid* temp;
-    int idx1, idx2;
-    for(int i = 0; i < 16; i++){
-        idx1 = rand() % deck.size();
-        idx2 = rand() % deck.size();
+ 
+// this might be needed
+
+
+//void shuffle(vector<Grid*>){
+//    Grid* temp;
+//    int idx1, idx2;
+//    for(int i = 0; i < 16; i++){
+//        idx1 = rand() % deck.size();
+//        idx2 = rand() % deck.size();
         
-        temp = deck.at(idx1);
-        deck.at(idx1) = deck.at(idx2);
-        deck.at(idx2) = temp;
-    }
-}
+//        temp = deck.at(idx1);
+//        deck.at(idx1) = deck.at(idx2);
+//        deck.at(idx2) = temp;
+//    }
+//}
 
 /* renderHand()
  *
  * Renders the cards in he hand vector passed.
  *
  */
-void renderGrid(vector<Grid*> hand){
-    if(hand.size() > 0){
-        for(int i = 0; i <= 7; i++){
-            for(int j = 0; j < hand.size(); j++){
-                cout << hand.at(j)->render(i) << " ";
-            }
-            cout << endl;
+//void renderGrid(vector<Grid*> hand){
+//    if(hand.size() > 0){
+//        for(int i = 0; i <= 7; i++){
+//            for(int j = 0; j < hand.size(); j++){
+//                cout << hand.at(j)->render(i) << " ";
+//            }
+//           cout << endl;
+//        }
+//    } else {
+//        for(int i = 0; i <= 7; i++)
+//            cout << endl;
+//    }
+//}
+
+void renderBoard(int row, int column){
+    arrayBoard = [row, column];
+    //HouseGrid
+    for(int i = 1; i <= row; i++){
+        for(int j = 1; j <= column; j++){
+            cout << hands.at(j) -> render(i) << " ";
         }
-    } else {
-        for(int i = 0; i <= 7; i++)
-            cout << endl;
+        cout << endl;
     }
+    
 }
 
 
@@ -74,7 +93,8 @@ void renderGrid(vector<Grid*> hand){
  * players turn (see numCardsToPlay in GameManager).
  *
  */
-void takeTurn(vector<Grid*> &deck, vector<Grid*> &hand, vector<Grid*> &discard, GameManager &gameManager){
+void takeTurn(vector<Grid*> &deck, vector<Grid*> &hand, GameManager &gameManager){
+    renderBoard(int row, int column); // this renders board after each turn
     cout << "Player " << gameManager.currentPlayerIndex << "'s turn." << endl;
     
     // TODO: Draw cards if necessary (draw 2 card)
@@ -120,13 +140,21 @@ void takeTurn(vector<Grid*> &deck, vector<Grid*> &hand, vector<Grid*> &discard, 
 int main(){
     srand(time(0));
     
-    GameManager gameManager(2); // Create game for 2 players
+    cout << "How wide do you want your board" << endl;
+    cin >> row;
+    cout << "How long do you want your board" << endl;
+    cin >> column;
+    
+    
+    GameManager gameManager(2); // Create game for 2 players need to change to be able to take many players++++++++++++++++++++++++++++++
 
     // vector of vectors to hold handls for n number of players
-    vector<vector<Grid*>> hands(gameManager.numPlayers);
+    vector<vector<Grid*>> hands(gameManager.numPlayers); //hands function created here
     
     buildGrid(deck);
     shuffle(deck);
+    renderBoard(int row, int column);
+    
     
     for(int i = 0; i < hands.size(); i++)
         drawCards(deck,hands.at(i),7);
